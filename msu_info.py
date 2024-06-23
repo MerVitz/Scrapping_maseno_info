@@ -1,0 +1,80 @@
+# -*- coding: utf-8 -*-
+import csv
+
+# Define the data
+data = [
+    {"Category": "Application Procedure", "Detail": "DOWNLOAD & PRINT application forms", "Additional Info": "OBTAIN application forms from the Office of the Registrar, Academic Affairs, the Office of the Director Kisumu Campus, or the Office of the Coordinator. Upon payment of a non-refundable Application Fee of Ksh. 2,000/= at the banks indicated, completed Application Forms will be submitted alongside the bank deposit slips to the Office of the Registrar, Academic Affairs, the Office of the Director, Kisumu Campus. If applying online, applicants will be required to upload a scan of the bank deposit slip for the application fee."},
+    {"Category": "Bank Details", "Detail": "Main Campus", "Additional Info": "Equity Bank, Luanda Branch A/C Number 1120297065141"},
+    {"Category": "Bank Details", "Detail": "Kisumu Campus", "Additional Info": "Kenya Commercial Bank: Acc. No. 1101561076, Kisumu"},
+    {"Category": "Download Link", "Detail": "Application Forms For Certificate /Diploma", "Additional Info": "Postgraduate Referee Forms, Application Form For Undergraduate, Application Form For Postgraduate"},
+    {"Category": "Maseno in Brief", "Detail": "Maseno University founded in 1991", "Additional Info": "It is the only university on the globe that lies along the Equator (00). It is one of the original seven universities in Kenya. It has a number of campuses namely; Main Campus situated in Maseno Township along Kisumu-Busia road, 25 km from Kisumu City and approximately 400 km west of Nairobi the capital city of Kenya, Kisumu Campus, Odera Akang'o in Siaya County and the eCampus."},
+    {"Category": "General Information", "Detail": "Vision", "Additional Info": "The University of Excellence in discovery and dissemination of knowledge."},
+    {"Category": "General Information", "Detail": "Mission", "Additional Info": "To discover, harness, apply, disseminate and preserve knowledge for good of humanity."},
+    {"Category": "General Information", "Detail": "Quality Policy Statement", "Additional Info": "Maseno University is committed to quality through teaching, research and development, providing timely services to foster and develop academic excellence in basic and applied research at all levels of study by training practice oriented manpower, who can contribute effectively to social, intellectual and academic development."},
+    {"Category": "University Management", "Detail": "Vice Chancellor", "Additional Info": "Prof. Julius O. Nyabundi, OGW BSc.(UoN), MSc.(UoN), Ph.D.(California, Davis), Vice- Chancellor Maseno University"},
+    {"Category": "University Management", "Detail": "Deputy Vice Chancellor Administration, Finance & Development", "Additional Info": "Prof. Catherine A. Muhoma"},
+    {"Category": "University Management", "Detail": "Deputy Vice Chancellor Academic & Student Affairs", "Additional Info": "Prof. Mary J. Kipsat"},
+    {"Category": "University Management", "Detail": "Deputy Vice Chancellor Partnership, Research & Innovation", "Additional Info": "Prof. Joseph S. Chacha"},
+    {"Category": "University Management", "Detail": "FINANCE OFFICER", "Additional Info": "Mr. Joseph W Omondi, BBA.(KEMU), MBA (UoN), CPA(K)"},
+    {"Category": "University Management", "Detail": "LEGAL OFFICER", "Additional Info": "Ms. Joy A. Akinyi, LLB (Moi), PGD (KSL), Dip (KIM), MBA(UoN)"},
+    {"Category": "University Council", "Detail": "Chairman of Council", "Additional Info": "Prof N. Omolo Ongati, PhD (Mathematics), University of Pretoria, South Africa"},
+    {"Category": "University Council", "Detail": "Vice- Chancellor Maseno University", "Additional Info": "Prof. Julius O. Nyabundi, OGW BSc.(UoN), MSc.(UoN), Ph.D.(California, Davis)"},
+    {"Category": "University Council", "Detail": "Member of Council", "Additional Info": "Ponyochi Kunyobo, MBA -London Metropolitan University, BCOM (Accounting) -University of Nairobi"},
+    {"Category": "University Council", "Detail": "Member of Council", "Additional Info": "Dr. Matilda Chemutai Sang, Doctor Of Philosophy, PhD, Business Administration (Entrepreneurship) Kabarak University, Master Of Business Administration, Entrepreneurship Kenyatta University"},
+    {"Category": "University Council", "Detail": "Member of Council", "Additional Info": "Darius G. Isaboke, Master of Arts in Development Studies, University of Nairobi, Bachelor of Education (Arts), Catholic University of Eastern Africa (CUEA), Monitoring and Evaluation, Carleton University Canada, Ottawa, Canada"},
+    {"Category": "URL", "Detail": "Maseno in Brief", "Additional Info": "https://www.maseno.ac.ke/maseno-brief"},
+    {"Category": "URL", "Detail": "General Information", "Additional Info": "https://www.maseno.ac.ke/maseno-general-information"},
+    {"Category": "URL", "Detail": "University Management", "Additional Info": "https://www.maseno.ac.ke/university-staff"},
+    {"Category": "URL", "Detail": "University Council", "Additional Info": "https://www.maseno.ac.ke/maseno-university-council"},
+    {"Category": "Download Link", "Detail": "Application Forms", "Additional Info": "https://www.maseno.ac.ke/application-forms"},
+    {"Category": "Fee Structure", "Detail": "Fee Structure", "Additional Info": "https://www.maseno.ac.ke/fee-structure"},
+    {"Category": "Joining Instructions", "Detail": "Joining Instructions", "Additional Info": "https://www.maseno.ac.ke/joining-instructions"},
+    {"Category": "Contact Information", "Detail": "Contact Info", "Additional Info": "Private Bag, Maseno, Kenya. Mobile: 0722-203411. Tel: +254 - 57 - 351620/2. info@maseno.ac.ke"},
+    {"Category": "Contact Information", "Detail": "Additional Contact Info", "Additional Info": "Maseno University. (+254) 722 314 765. info@maseno.ac.ke"},
+    {"Category": "Student Portal", "Detail": "Student Portal", "Additional Info": "https://student.maseno.ac.ke/"},
+    {"Category": "Staff Portal", "Detail": "Staff Portal", "Additional Info": "https://staff.maseno.ac.ke/"},
+    {"Category": "Homepage", "Detail": "Homepage", "Additional Info": "https://www.maseno.ac.ke/"},
+    {"Category": "Joining Instructions", "Detail": "Details", "Additional Info": "STUDENTS JOINING INSTRUCTIONS, ADMISSION LETTER KUCCPS LETTER, ADMISSION PARCEL, GENERAL INFORMATION TO NEW STUDENTS, OTHER REQUIREMENTS FOR 1ST BSC. (PUBLIC HEALTH, WITH IT), OTHER REQUIREMENTS FOR 1ST YEAR ECOTOURISM, OTHER REQUIREMENTS FOR BSC. NURSING, OTHER REQUIREMENTS FOR SCHOOL OF MEDICINE AND PHARMACY, STUDENTS ACCEPTANCE FORM, STUDENTS DECLARATION FORM, STUDENTS EMERGENCY OPERATION FORM, STUDENTS MEDICAL EXAMINATION FORM, STUDENTS PERSONAL DEPTAILS FORM"},
+    {"Category": "Schools", "Detail": "School of Education", "Additional Info": "https://soe.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Medicine", "Additional Info": "https://medicine.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Pharmacy", "Additional Info": "https://sop.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Mathematics", "Additional Info": "https://smsas.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Development and Strategic Studies", "Additional Info": "https://sdss.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Nursing", "Additional Info": "https://son.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Computing and Informatics", "Additional Info": "https://sci.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Public Health", "Additional Info": "http://publichealth.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Business", "Additional Info": "https://sbe.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Arts and Social Sciences", "Additional Info": "https://sass.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Agriculture and Food Security", "Additional Info": "https://safs.maseno.ac.ke/"},
+    {"Category": "Schools", "Detail": "School of Physical and Biological Sciences", "Additional Info": "https://sbps.maseno.ac.ke/"},
+    {"Category": "Program Types", "Detail": "Doctorate Programmes", "Additional Info": "Doctorate Programmes"},
+    {"Category": "Program Types", "Detail": "Diploma Programmes", "Additional Info": "Diploma Programmes"},
+    {"Category": "Program Types", "Detail": "Masters Programmes", "Additional Info": "Masters Programmes"},
+    {"Category": "Program Types", "Detail": "Certificate Programmes", "Additional Info": "Certificate Programmes"},
+    {"Category": "Program Types", "Detail": "Bachelor Programmes", "Additional Info": "Bachelor Programmes"},
+    {"Category": "eCampus", "Detail": "Login/Register", "Additional Info": "Details for students to log in or register for eLearning courses"},
+    {"Category": "eCampus", "Detail": "Module Registration", "Additional Info": "Information on how students can register for different modules"},
+    {"Category": "eCampus", "Detail": "Programmes", "Additional Info": "List of available eLearning programmes"},
+    {"Category": "eCampus", "Detail": "Fees", "Additional Info": "Detailed fee structure for eLearning programmes"},
+    {"Category": "eCampus", "Detail": "Apply Now", "Additional Info": "Steps and links to apply for eLearning courses"},
+    {"Category": "eCampus", "Detail": "eLearning Portal", "Additional Info": "Link to the eLearning portal for course access"},
+    {"Category": "eCampus", "Detail": "Student Portal", "Additional Info": "Link to the student portal for managing student accounts and activities"},
+    {"Category": "eCampus", "Detail": "Student Noticeboard", "Additional Info": "Updates and announcements for eLearning students"},
+    {"Category": "eCampus", "Detail": "Term Dates", "Additional Info": "Important dates for the eLearning academic calendar"},
+    {"Category": "eCampus", "Detail": "Fee Payment", "Additional Info": "Instructions and details for paying fees for eLearning courses"},
+    {"Category": "eCampus", "Detail": "Prospective Graduands Notice", "Additional Info": "Information for students about graduation procedures and requirements"},
+    {"Category": "eCampus", "Detail": "Programme Information Booklet", "Additional Info": "A booklet with detailed information about the eLearning programmes offered"},
+    {"Category": "eCampus", "Detail": "Why Choose Us?", "Additional Info": "Benefits and unique features of the eLearning platform"},
+    {"Category": "eCampus", "Detail": "Learn at home, at work or on the move", "Additional Info": "We guarantee reliable access to flexible modular courses, eLibrary, and administrative support, anytime, anywhere at your convenience."},
+    {"Category": "eCampus", "Detail": "E-Learning", "Additional Info": "Examinations for eLearning students are conducted under similar conditions to that of the face-to-face students."},
+    {"Category": "eCampus", "Detail": "High quality", "Additional Info": "We offer high-quality online modules based on experience, knowledge, and skills drawn from collaboration with international partners."},
+    {"Category": "eCampus", "Detail": "Affordable", "Additional Info": "Our eCampus programmes allow learners to only pay for the number of modules they wish to take. You make a substantial saving on cost compared to face-to-face learners."}
+]
+
+# Write the data to a CSV file
+with open('msu.csv', mode='w', newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=["Category", "Detail", "Additional Info"])
+    writer.writeheader()
+    writer.writerows(data)
+
+print("Data has been written to msu_info.csv")
